@@ -3,7 +3,7 @@ import { Hono } from 'hono';
 
 import { zValidator } from '@hono/zod-validator';
 
-import { register } from '../controller/user';
+import { login, register } from '../controller/user';
 
 const authRoutes = new Hono();
 
@@ -23,16 +23,16 @@ const passwordValidationSchema = z.string()
     message: 'At least one special character',
   });
 
-const userValidationSchema = z.object({
+export const userValidationSchema = z.object({
   username: z.string()
-    .min(4, { message: 'Username must at least 4 character long' })
+    .min(4, { message: 'Username must be at least 4 character long' })
     .max(20, { message: 'Username can not exceed 20 characters' }),
   email: z.string()
     .email({ message: 'Invalid email' }),
   password: passwordValidationSchema
 });
 
-authRoutes.post('/register', zValidator('json', userValidationSchema), register);
-authRoutes.post('/login');
+authRoutes.post('/register', register);
+authRoutes.post('/login', login);
 
 export { authRoutes };
