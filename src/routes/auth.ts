@@ -1,8 +1,6 @@
 import { z } from 'zod';
 import { Hono } from 'hono';
 
-import { zValidator } from '@hono/zod-validator';
-
 import { login, register } from '../controller/user';
 
 const authRoutes = new Hono();
@@ -23,10 +21,15 @@ const passwordValidationSchema = z.string()
     message: 'At least one special character',
   });
 
+const usernameValidationSchema = z.string()
+  .min(4, { message: 'Username must be at least 4 character long' })
+  .max(20, { message: 'Username can not exceed 20 characters' })
+  .refine((username) => /^[a-zA-Z0-9_]+$/.test(username), {
+    message: 'Username can only contain letters, numbers, and underscores.'
+  });
+
 export const userValidationSchema = z.object({
-  username: z.string()
-    .min(4, { message: 'Username must be at least 4 character long' })
-    .max(20, { message: 'Username can not exceed 20 characters' }),
+  username: usernameValidationSchema,
   email: z.string()
     .email({ message: 'Invalid email' }),
   password: passwordValidationSchema

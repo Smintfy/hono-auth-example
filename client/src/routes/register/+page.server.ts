@@ -2,11 +2,6 @@ import { API_URL } from "$env/static/private";
 import { redirect } from "@sveltejs/kit";
 
 type State = {
-  errors?: {
-    username?: string[];
-    email?: string[];
-    password?: string[];
-  };
   message?: string | null;
 };
 
@@ -41,20 +36,12 @@ export const actions = {
       });
 
       throw redirect(301, '/protected');
-    } else {
-      const result: State = await response.json();
-
-      console.log(result);
-
-      if (result.errors) {
-        return {
-          errors: result.errors
-        };
-      }
-
-      return {
-        message: result.message || 'An error occurred.'
-      };
     }
+
+    const error: State = await response.json();
+
+    return {
+      message: error.message || 'An error occured.'
+    };
   }
 };
