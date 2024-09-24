@@ -1,3 +1,6 @@
+## Hono Auth Example
+Auth from scratch using jwt token in Hono and Svelte.
+
 To install dependencies:
 ```sh
 bun install
