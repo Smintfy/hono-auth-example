@@ -104,21 +104,21 @@ export const signUp = async (c: Context) => {
   }
 };
 
-export const signOut = async (c: Context) => {
-  try {
-    const token = c.req.header('Authorization')?.split(' ')[1];
+// export const signOut = async (c: Context) => {
+//   try {
+//     const token = c.req.header('Authorization')?.split(' ')[1];
 
-    if (!token) {
-      return c.json({ message: 'no token' });
-    }
+//     if (!token) {
+//       return c.json({ message: 'no token' });
+//     }
 
-    return c.json({ token: token });
-  } catch (e: any) {
-    throw new HTTPException(
-      e.statusCode, { message: e.message, cause: e }
-    );
-  }
-};
+//     return c.json({ token: token });
+//   } catch (e: any) {
+//     throw new HTTPException(
+//       e.statusCode, { message: e.message, cause: e }
+//     );
+//   }
+// };
 
 export const getUserInfo = async (c: Context) => {
   try {

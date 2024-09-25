@@ -64,7 +64,9 @@ export default function tilt(node: HTMLElement, settingsObj?: UserFacingTiltSett
 
   let transitionId: ReturnType<typeof setTimeout>;
   function smoothTransition() {
-    // Existing smoothTransition logic
+    clearTimeout(transitionId);
+    node.style.transition = `600ms ${settings.easing}`;
+    transitionId = setTimeout(() => node.style.transition = '0s', settings.transition);
   }
 
   function onMouseLeave() {

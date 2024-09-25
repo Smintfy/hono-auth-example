@@ -211,7 +211,6 @@
 						on:blur={handleBlur}
 						aria-invalid={password.touched && !!password.validated}
 						aria-describedby="password-error"
-						autocomplete="off"
 					/>
 					<button
 						type="button"
@@ -263,7 +262,7 @@
 		</button>
 		<span class="m-auto text-[#A3A3A3]">
 			Have an Account?
-			<a class="text-[#737373] underline" href="/login">Log in</a>
+			<a class="text-[#737373] underline" href="/signin">Sign In</a>
 		</span>
 		<span class="text-sm text-[#A3A3A3] m-auto">
 			By joining, you agree to our

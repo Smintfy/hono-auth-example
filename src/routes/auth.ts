@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { Hono } from 'hono';
 
-import { signIn, signUp, signOut } from '../controller/user';
+import { signIn, signUp } from '../controller/user';
 
 const authRoutes = new Hono();
 
@@ -37,6 +37,5 @@ export const userValidationSchema = z.object({
 
 authRoutes.post('/signup', signUp);
 authRoutes.post('/signin', signIn);
-authRoutes.post('/signout', signOut);
 
 export { authRoutes };

@@ -19,23 +19,24 @@ export const actions = {
       password
     });
 
-    const response = await fetch(`${API_URL}/auth/register`, {
+    const response = await fetch(`${API_URL}/auth/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body,
     });
 
     if (response.ok) {
-      const token = await response.json();
+      const { data } = await response.json();
+      const token = data.token;
 
       cookies.set('token', token, {
         path: '/',
         httpOnly: true,
         sameSite: 'strict',
-        maxAge: 30
+        maxAge: 60 * 60 // 1 hour
       });
 
-      throw redirect(301, '/protected');
+      throw redirect(301, '/');
     }
 
     const error: State = await response.json();
