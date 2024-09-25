@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 
 import { authMiddleware } from './middleware/auth';
 import { authRoutes } from './routes/auth';
+import { getUserInfo } from './controller/user';
 
 config({ path: '.env' });
 
@@ -13,6 +14,8 @@ app.get('/', (c) => {
 });
 
 app.route('/auth', authRoutes);
+
+app.get('/user', authMiddleware, getUserInfo);
 
 app.get('/protected', authMiddleware, (c) => {
   return c.text("You're authorized");
